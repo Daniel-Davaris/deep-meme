@@ -1,5 +1,5 @@
 import keras
-import sklearn
+from sklearn.model_selection import train_test_split
 import cv2
 from scraper import load_data
 import matplotlib.pyplot as plt
@@ -47,7 +47,7 @@ model.compile(
     metrics=['accuracy']
 )
 
-x, y, x_t, y_t = sklearn.model_selection.train_test_split(load_data())
+x, y, x_t, y_t = train_test_split(load_data())
 
 his_train = model.fit_generator(x, y, epochs=10, shuffle=True, validation_data=(x_t, y_t))
 
