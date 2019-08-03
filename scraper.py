@@ -13,7 +13,7 @@ def scrape():
 
     subreddit = reddit.subreddit('memes')
 
-    top_subreddit = subreddit.top(limit=500)
+    top_subreddit = subreddit.top()
 
     for submission in subreddit.top(limit=1):
         print(submission.title, submission.id)
@@ -46,7 +46,7 @@ def get_date(created):
 _timestamp = topics_data["created"].apply(get_date)
 topics_data = topics_data.assign(timestamp = _timestamp)
 
-# topics_data.to_csv('exported_data.csv', index=False) 
+topics_data.to_csv('exported_data.csv', index=False) 
 
 def pull_img_web(url):
     # pull image
@@ -58,7 +58,6 @@ def pull_img_web(url):
     return image
 
 def load_data():
-    
     for item in pd.read_csv('exported_data.csv'):
         yield (item.score, pull_img_web(item.url))
 
