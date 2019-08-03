@@ -68,9 +68,19 @@ def load_data():
     # print(topics_data)
     x = pd.read_csv('exported_data.csv')
     df = pd.DataFrame(x, columns=["url", "score"])
+    for v in df:
+        v.as_matrix
     em = df.as_matrix()
-    print(em)
-    print(type(em))
+    return (clamp_score(em[1]), pull_img_web(em[0]))
+    
+
+def clamp_score():
+    pass
+    # print(em)
+    # print(type(em))
+    # h5f = h5py.File('data.h5', 'w')
+    # h5f.create_dataset('dataset_1', data=a)
+
     
     # for index, row in df.iterrows():
     #     new_score = (row['score'])
