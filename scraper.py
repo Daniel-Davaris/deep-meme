@@ -5,6 +5,7 @@ import datetime as dt
 import urllib
 import numpy as np
 import cv2
+import passwords
 
 
 def scrape():
@@ -12,7 +13,7 @@ def scrape():
                          client_secret='FxM4ELY9LdRHigqU7gFmp-NUvms',
                          user_agent='scraper',
                          username='daniel_davaris2',
-                         password='@Anvil2689')
+                         password=passwords.reddit_pass)
 
     subreddit = reddit.subreddit('memes')
 
