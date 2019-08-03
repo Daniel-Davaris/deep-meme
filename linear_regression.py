@@ -34,6 +34,7 @@ plt.plot(x, y_pred, color='blue', linewidth=3)
 
 plt.xticks(())
 plt.yticks(())
-
+plt.xlabel('Reddit score')
+plt.ylabel('Length of meme text')
 plt.show()
 

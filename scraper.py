@@ -8,6 +8,7 @@ import cv2
 import passwords
 import h5py 
 
+
 max_score = 0
 min_score = 0
 
