@@ -9,8 +9,6 @@ import passwords
 import h5py 
 
 
-max_score = 0
-min_score = 0
 
 def scrape():
     reddit = praw.Reddit(client_id='zYB_XDoA3o_YKQ',
@@ -60,7 +58,4 @@ def get_date(created):
 
 
 
-
-
-    
 
