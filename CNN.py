@@ -1,9 +1,10 @@
 import keras
 from sklearn.model_selection import train_test_split
 import cv2
-from scraper import load_data
+# from scraper import load_data
 import matplotlib.pyplot as plt
 import h5py
+import numpy as np
 """
 in ->
 [
@@ -65,10 +66,10 @@ model.compile(
     loss='sparse_categorical_crossentropy',
     metrics=['accuracy']
 )
-hf = h5py.File('images.h5', 'r')
-x, y, x_t, y_t = train_test_split(hf.get('dataset_name'))
+hf = h5py.File('data.h5', 'r')
+y, t_y, x, t_x = train_test_split(np.array(hf.get('labels')), np.array(hf.get('imgs')))
 
-history = model.fit_generator(x, y, epochs=10, shuffle=True, validation_data=(x_t, y_t))
+history = model.fit(x, y, epochs=10, shuffle=True, validation_data=(t_x, t_y), batch_size=10)
 
 plot_train(history)
 

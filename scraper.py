@@ -79,10 +79,19 @@ def csv_to_np():
     min_score = df.score.min()
     em = df.as_matrix()
     print("OK!")
-    return np.array([(clamp_score(x[2], x[0]), pull_img_web(x[1])) for x in em])
+    out = []
+    for row in em:
+        try:
+            img = pull_img_web(row[1])
+            out.append((clamp_score(row[2], row[0]), img))
+        except:
+            continue
+    return np.array(out)
 
 def np_to_h5py():
-    labels, imgs = zip(*csv_to_np())
+    stuffs = csv_to_np()
+    print(len(stuffs))
+    labels, imgs = zip(*stuffs)
     h5f = h5py.File('data.h5', 'w')
     h5f.create_dataset('imgs', data=imgs)
     h5f.create_dataset('labels', data=labels)
@@ -95,11 +104,11 @@ def h5py_to_np():
     
 
 def clamp_score(score, index):
-    print(score, type(score))
     # Sorry in advance
     global max_score, min_score
     score -= min_score
     score /= int(max_score / 10)
+    print(abs(score - 10), type(score))
     return score
 
     # print(em)
