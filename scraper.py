@@ -8,6 +8,7 @@ import cv2
 import passwords
 import h5py 
 
+
 max_score = 0
 min_score = 0
 
@@ -77,14 +78,14 @@ def load_data():
     max_score = df.score.max() - df.score.min()
     min_score = df.score.min()
     em = df.as_matrix()
-    return np.array([(clamp_score(x[1]), pull_img_web(x[0])) for x in em])
+    return (clamp_score(em[1]), pull_img_web(em[0]))
     
 
 def clamp_score(score):
     # Sorry in advance
     global max_score, min_score
     score -= min_score
-    score /= (max_score / 10)
+    score /= (max_score/10)
     return score
 
     # print(em)
