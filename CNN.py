@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 import cv2
 from scraper import load_data
 import matplotlib.pyplot as plt
+import h5py
 """
 in ->
 [
@@ -64,8 +65,8 @@ model.compile(
     loss='sparse_categorical_crossentropy',
     metrics=['accuracy']
 )
-
-x, y, x_t, y_t = train_test_split(load_data())
+hf = h5py.File('images.h5', 'r')
+x, y, x_t, y_t = train_test_split(hf.get('dataset_name'))
 
 history = model.fit_generator(x, y, epochs=10, shuffle=True, validation_data=(x_t, y_t))
 
