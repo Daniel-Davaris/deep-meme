@@ -11,7 +11,6 @@ in ->
 
 
 # TODO: Resize imagesd with cv2.resize()
-x, y, x_t, y_t = sklearn.model_selection.train_test_split(load_data())
 
 model = keras.models.Sequential([
     # Conv block 1
@@ -19,19 +18,18 @@ model = keras.models.Sequential([
     keras.layers.Conv2D(32, (3, 3), activation='relu'),
     keras.layers.MaxPool2D(3, 3),
 
-    # Conv block 2
     keras.layers.Conv2D(64, (3, 3), activation='relu'),
     keras.layers.Conv2D(64, (3, 3), activation='relu'),
     keras.layers.MaxPool2D(3, 3),
 
     # Conv block 2
-    keras.layers.Conv2D(128, (3, 3), activation='relu'),
-    keras.layers.Conv2D(128, (3, 3), activation='relu'),
-    keras.layers.MaxPool2D(3, 3),
+    keras.layers.Conv2D(96, (3, 3), activation='relu'),
+    keras.layers.Conv2D(96, (3, 3), activation='relu'),
+    keras.layers.MaxPool2D(4, 4),
 
     # Dense layer
     keras.layers.Flatten(),
-    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(64, activation='relu'),
     keras.layers.Dropout(0.2),
     keras.layers.Dense(64, activation='relu'),
     keras.layers.Dropout(0.2),
@@ -47,6 +45,8 @@ model.compile(
     loss='sparse_categorical_crossentropy',
     metrics=['accuracy']
 )
+
+x, y, x_t, y_t = sklearn.model_selection.train_test_split(load_data())
 
 his_train = model.fit_generator(x, y, epochs=5, shuffle=True, validation_data=(x_t, y_t))
 

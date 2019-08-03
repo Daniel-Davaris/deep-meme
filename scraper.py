@@ -3,6 +3,7 @@ import praw
 import pandas as pd
 import datetime as dt
 import urllib
+import numpy as np
 
 
 def scrape():
