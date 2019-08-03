@@ -2,7 +2,7 @@
 import praw
 import pandas as pd
 import datetime as dt
-import urllib
+import requests
 import numpy as np
 import cv2
 import passwords
@@ -59,32 +59,47 @@ def get_date(created):
 
 def pull_img_web(url):
     # pull image
-    resp = urllib.urlopen(url)
-    image = np.asarray(bytearray(resp.read()), dtype="uint8")
+    resp = requests.get(url)
+    image = np.asarray(bytearray(resp.content), dtype="uint8")
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
     # resize
     image = cv2.resize(image, (200, 200))
-
+    print(image.shape)
     return image
 
-def load_data():
+def csv_to_np():
     # I know this is bad dw
     global max_score, min_score
     # print(topics_data)
     x = pd.read_csv('exported_data.csv')
-    df = pd.DataFrame(x, columns=["url", "score"])
+    print(x.keys())
+    df = pd.DataFrame(x, columns=["id", "url", "score"])
 
     max_score = df.score.max() - df.score.min()
     min_score = df.score.min()
     em = df.as_matrix()
-    return np.array([(clamp_score(x[1]), pull_img_web(x[0])) for x in em])
+    print("OK!")
+    return np.array([(clamp_score(x[2], x[0]), pull_img_web(x[1])) for x in em])
+
+def np_to_h5py():
+    labels, imgs = zip(*csv_to_np())
+    h5f = h5py.File('data.h5', 'w')
+    h5f.create_dataset('imgs', data=imgs)
+    h5f.create_dataset('labels', data=labels)
+    h5f.close()
+    return (labels, imgs)
+
+def h5py_to_np():
+    h5f = h5py.File('data.h5','r')
+    return (h5f['labels'][:], h5f['imgs'][:])
     
 
-def clamp_score(score):
+def clamp_score(score, index):
+    print(score, type(score))
     # Sorry in advance
     global max_score, min_score
     score -= min_score
-    score /= (max_score / 10)
+    score /= int(max_score / 10)
     return score
 
     # print(em)
@@ -113,4 +128,6 @@ def export_to_csv(topics_data):
 if __name__ == '__main__':
     # a = scrape()
     # export_to_csv(a)
-    load_data()
+    a = np_to_h5py()
+    b = h5py_to_np()
+    print("WOOOO" if a[0][0] == b[0][0] else ";(")
