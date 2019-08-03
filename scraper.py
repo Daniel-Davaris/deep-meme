@@ -43,7 +43,7 @@ def scrape():
     topics_data = topics_data.assign(timestamp=_timestamp)
     print("worked",topics_data )
 
-scrape()
+
 def get_date(created):
     return dt.datetime.fromtimestamp(created)
 
