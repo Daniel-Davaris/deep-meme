@@ -6,7 +6,7 @@ import urllib
 import numpy as np
 import cv2
 import passwords
-
+import h5py 
 
 def scrape():
     reddit = praw.Reddit(client_id='zYB_XDoA3o_YKQ',
@@ -45,6 +45,7 @@ def scrape():
     _timestamp = topics_data["created"].apply(get_date)
     topics_data = topics_data.assign(timestamp=_timestamp)
     print("worked",topics_data )
+    return topics_data
 
 
 def get_date(created):
@@ -60,14 +61,19 @@ def pull_img_web(url):
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
     # resize
     image = cv2.resize(image, (200, 200))
+
     return image
 
-
 def load_data():
-    while True:
-        for item in pd.read_csv('exported_data.csv'):
-            yield (item.score, pull_img_web(item.url))
-
+    for item in pd.read_csv('exported_data.csv'):
+        var = np.array(item.score, pull_img_web(item.url))
+        
+        # h5f = h5py.File('data.h5', 'w')
+        # h5f.create_dataset('dataset_1', data=a)
+           
+def export_to_csv(topics_data):
+    topics_data.to_csv('exported_data.csv', index=False) 
 
 if __name__ == '__main__':
-    scrape()
+    a = scrape()
+    export_to_csv(a)
