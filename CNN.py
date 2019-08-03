@@ -1,5 +1,5 @@
 import keras
-import sklearn
+from sklearn.model_selection import train_test_split
 import cv2
 from scraper import load_data
 import matplotlib.pyplot as plt
@@ -9,6 +9,24 @@ in ->
     (score: INT(1-10), url)
 ]
 """
+
+## Graphing
+
+
+def plot_train(history):
+    plt.subplot(1, 2, 1)
+    plt.title("Loss")
+    plt.plot(history.history['loss'], label="Training")
+    plt.plot(history.history['val_loss'], label="Validation")
+    plt.legend()
+
+    plt.subplot(1, 2, 2)
+    plt.title("Accuracy")
+    plt.plot(history.history['acc'], label="Training")
+    plt.plot(history.history['val_acc'], label="Validation")
+    plt.legend()
+
+    plt.show()
 
 
 # TODO: Resize imagesd with cv2.resize()
@@ -47,9 +65,10 @@ model.compile(
     metrics=['accuracy']
 )
 
-x, y, x_t, y_t = sklearn.model_selection.train_test_split(load_data())
+x, y, x_t, y_t = train_test_split(load_data())
 
-his_train = model.fit_generator(x, y, epochs=10, shuffle=True, validation_data=(x_t, y_t))
+history = model.fit_generator(x, y, epochs=10, shuffle=True, validation_data=(x_t, y_t))
 
+plot_train(history)
 
 # result = model.predict(image)
