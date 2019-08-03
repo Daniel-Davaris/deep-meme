@@ -65,8 +65,23 @@ def pull_img_web(url):
     return image
 
 def load_data():
-    for item in pd.read_csv('exported_data.csv'):
-        var = np.array(item.score, pull_img_web(item.url))
+    # print(topics_data)
+    x = pd.read_csv('exported_data.csv')
+    df = pd.DataFrame(x, columns=["url", "score"])
+    em = df.as_matrix()
+    print(em)
+    print(type(em))
+    
+    # for index, row in df.iterrows():
+    #     new_score = (row['score'])
+        # em.append(index, row['url'], new_score)
+        # print("max", max(new_score))
+        # print(index, row['url'], new_score)
+
+        
+    # for item in pd.read_csv('exported_data.csv')[1:]:
+    #     print(item)
+        # var = [item.score, pull_img_web(item.url)]
         
         # h5f = h5py.File('data.h5', 'w')
         # h5f.create_dataset('dataset_1', data=a)
@@ -75,5 +90,6 @@ def export_to_csv(topics_data):
     topics_data.to_csv('exported_data.csv', index=False) 
 
 if __name__ == '__main__':
-    a = scrape()
-    export_to_csv(a)
+    # a = scrape()
+    # export_to_csv(a)
+    load_data()
