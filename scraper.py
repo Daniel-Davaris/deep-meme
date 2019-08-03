@@ -38,13 +38,14 @@ def scrape():
 
     topics_data = pd.DataFrame(topics_dict)
 
+    _timestamp = topics_data["created"].apply(get_date)
+    topics_data = topics_data.assign(timestamp = _timestamp)
+
 # print("worked",topics_data )
 
 def get_date(created):
     return dt.datetime.fromtimestamp(created)
 
-_timestamp = topics_data["created"].apply(get_date)
-topics_data = topics_data.assign(timestamp = _timestamp)
 
 # topics_data.to_csv('exported_data.csv', index=False) 
 
@@ -58,9 +59,9 @@ def pull_img_web(url):
     return image
 
 def load_data():
-    
-    for item in pd.read_csv('exported_data.csv'):
-        yield (item.score, pull_img_web(item.url))
+    while True:
+        for item in pd.read_csv('exported_data.csv'):
+            yield (item.score, pull_img_web(item.url))
 
 
 if __name__ == '__main__':
