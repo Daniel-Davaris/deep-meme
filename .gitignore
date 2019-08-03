@@ -1,0 +1,5 @@
+passwords.py
+
+__pycache__/*
+
+.vscode/*
