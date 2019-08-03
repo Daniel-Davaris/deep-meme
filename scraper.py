@@ -8,6 +8,9 @@ import cv2
 import passwords
 import h5py 
 
+max_score = 0
+min_score = 0
+
 def scrape():
     reddit = praw.Reddit(client_id='zYB_XDoA3o_YKQ',
                          client_secret='FxM4ELY9LdRHigqU7gFmp-NUvms',
@@ -65,17 +68,25 @@ def pull_img_web(url):
     return image
 
 def load_data():
+    # I know this is bad dw
+    global max_score, min_score
     # print(topics_data)
     x = pd.read_csv('exported_data.csv')
     df = pd.DataFrame(x, columns=["url", "score"])
-    for v in df:
-        v.as_matrix
+
+    max_score = df.score.max() - df.score.min()
+    min_score = df.score.min()
     em = df.as_matrix()
     return (clamp_score(em[1]), pull_img_web(em[0]))
     
 
-def clamp_score():
-    pass
+def clamp_score(score):
+    # Sorry in advance
+    global max_score, min_score
+    score -= min_score
+    score /= (max_score/10)
+    return score
+
     # print(em)
     # print(type(em))
     # h5f = h5py.File('data.h5', 'w')
