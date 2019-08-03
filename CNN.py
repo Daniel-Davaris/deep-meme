@@ -36,7 +36,7 @@ def plot_train(history):
 
 model = keras.models.Sequential([
     # Conv block 1
-    keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)), # retrofitted for demo (inputsize)
+    keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)), 
     keras.layers.Conv2D(32, (3, 3), activation='relu'),
     keras.layers.MaxPool2D(2, 2),
 
@@ -57,7 +57,7 @@ model = keras.models.Sequential([
     keras.layers.Dropout(0.2),
     keras.layers.Dense(32, activation='relu'),
     keras.layers.Dropout(0.2),
-    keras.layers.Dense(10, activation='softmax') # retrofitted for demo (classifications)
+    keras.layers.Dense(10, activation='softmax') 
 ])
 
 model.summary()
@@ -71,7 +71,7 @@ hf = h5py.File('data.h5', 'r')
 y, t_y, x, t_x = train_test_split(np.array(hf.get('labels')), np.array(hf.get('imgs')), test_size=0.15)
 print(y[1])
 
-history = model.fit(x, y, epochs=15, shuffle=True, validation_data=(t_x, t_y), batch_size=20)
+history = model.fit(x, y, epochs=150, shuffle=True, validation_data=(t_x, t_y), batch_size=20)
 
 plot_train(history)
 
