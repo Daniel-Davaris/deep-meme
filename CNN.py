@@ -68,6 +68,7 @@ model.compile(
 )
 hf = h5py.File('data.h5', 'r')
 y, t_y, x, t_x = train_test_split(np.array(hf.get('labels')), np.array(hf.get('imgs')))
+print(y[:10])
 
 history = model.fit(x, y, epochs=10, shuffle=True, validation_data=(t_x, t_y), batch_size=10)
 

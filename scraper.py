@@ -21,7 +21,7 @@ def scrape():
 
     subreddit = reddit.subreddit('memes')
 
-    top_subreddit = subreddit.top(limit=500)
+    top_subreddit = subreddit.top(limit=900)
 
     for submission in subreddit.top(limit=1):
         print(submission.title, submission.id)
@@ -64,7 +64,7 @@ def pull_img_web(url):
     image = np.asarray(bytearray(resp.content), dtype="uint8")
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
     # resize
-    image = cv2.resize(image, (200, 200))
+    image = cv2.resize(image, (100, 100))
     print(image.shape)
     return image
 
@@ -109,8 +109,10 @@ def clamp_score(score, index):
     global max_score, min_score
     score -= min_score
     score /= int(max_score / 10)
-    print(abs(score - 10), type(score))
-    return score
+    lst = [0 for _ in range(10)]
+    lst[int(score)] = 1
+    print(lst)
+    return lst
 
     # print(em)
     # print(type(em))
@@ -136,8 +138,8 @@ def export_to_csv(topics_data):
     topics_data.to_csv('exported_data.csv', index=False) 
 
 if __name__ == '__main__':
-    # a = scrape()
-    # export_to_csv(a)
+    a = scrape()
+    export_to_csv(a)
     a = np_to_h5py()
     b = h5py_to_np()
-    print("WOOOO" if a[0][0] == b[0][0] else ";(")
+    print("WOOOO" if a[0][0][0] == b[0][0][0] else ";(")
