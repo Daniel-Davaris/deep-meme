@@ -4,6 +4,7 @@ import pandas as pd
 import datetime as dt
 import urllib
 import numpy as np
+import cv2
 
 
 def scrape():

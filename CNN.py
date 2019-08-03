@@ -2,6 +2,7 @@ import keras
 import sklearn
 import cv2
 from scraper import load_data
+import matplotlib.pyplot as plt
 """
 in ->
 [
@@ -48,7 +49,7 @@ model.compile(
 
 x, y, x_t, y_t = sklearn.model_selection.train_test_split(load_data())
 
-his_train = model.fit_generator(x, y, epochs=5, shuffle=True, validation_data=(x_t, y_t))
+his_train = model.fit_generator(x, y, epochs=10, shuffle=True, validation_data=(x_t, y_t))
 
 
 # result = model.predict(image)
