@@ -33,46 +33,46 @@ def plot_train(history):
 
 
 # TODO: Resize imagesd with cv2.resize()
+if __name__ == '__main__':
+    model = keras.models.Sequential([
+        # Conv block 1
+        keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)), # retrofitted for demo (inputsize)
+        keras.layers.Conv2D(32, (3, 3), activation='relu'),
+        keras.layers.MaxPool2D(2, 2),
 
-model = keras.models.Sequential([
-    # Conv block 1
-    keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)), # retrofitted for demo (inputsize)
-    keras.layers.Conv2D(32, (3, 3), activation='relu'),
-    keras.layers.MaxPool2D(2, 2),
+        keras.layers.Conv2D(64, (3, 3), activation='relu'),
+        keras.layers.Conv2D(64, (3, 3), activation='relu'),
+        keras.layers.MaxPool2D(2, 2),
 
-    keras.layers.Conv2D(64, (3, 3), activation='relu'),
-    keras.layers.Conv2D(64, (3, 3), activation='relu'),
-    keras.layers.MaxPool2D(2, 2),
+        # Conv block 2
+        keras.layers.Conv2D(96, (3, 3), activation='relu'),
+        keras.layers.Conv2D(96, (3, 3), activation='relu'),
+        keras.layers.MaxPool2D(4, 4),
 
-    # Conv block 2
-    keras.layers.Conv2D(96, (3, 3), activation='relu'),
-    keras.layers.Conv2D(96, (3, 3), activation='relu'),
-    keras.layers.MaxPool2D(4, 4),
+        # Dense layer
+        keras.layers.Flatten(),
+        keras.layers.Dense(64, activation='relu'),
+        keras.layers.Dropout(0.6),
+        keras.layers.Dense(64, activation='relu'),
+        keras.layers.Dropout(0.6),
+        keras.layers.Dense(32, activation='relu'),
+        keras.layers.Dropout(0.6),
+        keras.layers.Dense(10, activation='softmax') # retrofitted for demo (classifications)
+    ])
 
-    # Dense layer
-    keras.layers.Flatten(),
-    keras.layers.Dense(64, activation='relu'),
-    # keras.layers.Dropout(0.2),
-    keras.layers.Dense(64, activation='relu'),
-    keras.layers.Dropout(0.2),
-    keras.layers.Dense(32, activation='relu'),
-    keras.layers.Dropout(0.2),
-    keras.layers.Dense(10, activation='softmax') # retrofitted for demo (classifications)
-])
+    model.summary()
 
-model.summary()
+    model.compile(
+        optimizer='adam',
+        loss='categorical_crossentropy',
+        metrics=['accuracy'],
+    )
+    hf = h5py.File('data.h5', 'r')
+    y, t_y, x, t_x = train_test_split(np.array(hf.get('labels')), np.array(hf.get('imgs')), test_size=0.15)
 
-model.compile(
-    optimizer='adam',
-    loss='categorical_crossentropy',
-    metrics=['accuracy'],
-)
-hf = h5py.File('data.h5', 'r')
-y, t_y, x, t_x = train_test_split(np.array(hf.get('labels')), np.array(hf.get('imgs')), test_size=0.15)
-print(y[1])
+    history = model.fit(x, y, epochs=20, shuffle=True, validation_data=(t_x, t_y), batch_size=20)
 
-history = model.fit(x, y, epochs=15, shuffle=True, validation_data=(t_x, t_y), batch_size=20)
+    plot_train(history)
 
-plot_train(history)
-
-# result = model.predict(image)
+    model.save("model.h5")
+    # result = model.predict(image)
