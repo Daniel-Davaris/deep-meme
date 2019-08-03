@@ -5,6 +5,7 @@ import cv2
 import matplotlib.pyplot as plt
 import h5py
 import numpy as np
+
 """
 in ->
 [
@@ -64,14 +65,13 @@ model.summary()
 model.compile(
     optimizer='adam',
     loss='categorical_crossentropy',
-    metrics=['accuracy']
+    metrics=['accuracy'],
 )
 hf = h5py.File('data.h5', 'r')
 y, t_y, x, t_x = train_test_split(np.array(hf.get('labels')), np.array(hf.get('imgs')), test_size=0.15)
-print(model.predict(x[:2])[1])
 print(y[1])
 
-history = model.fit(x, y, epochs=10, shuffle=True, validation_data=(t_x, t_y), batch_size=20)
+history = model.fit(x, y, epochs=15, shuffle=True, validation_data=(t_x, t_y), batch_size=20)
 
 plot_train(history)
 
