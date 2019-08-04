@@ -68,6 +68,13 @@ def export_to_csv(topics_data):
     topics_data.to_csv('exported_data.csv', index=False) 
 
 
+if __name__ == '__main__':
+    a = scrape()
+    export_to_csv(a)
+    a = np_to_h5py()
+    b = h5py_to_np()
+    print("WOOOO" if a[0][0][0] == b[0][0][0] else ";(")
+
 
     
 
@@ -91,10 +98,3 @@ def export_to_csv(topics_data):
         # h5f = h5py.File('data.h5', 'w')
         # h5f.create_dataset('dataset_1', data=a)
 
-
-if __name__ == '__main__':
-    a = scrape()
-    export_to_csv(a)
-    a = np_to_h5py()
-    b = h5py_to_np()
-    print("WOOOO" if a[0][0][0] == b[0][0][0] else ";(")
