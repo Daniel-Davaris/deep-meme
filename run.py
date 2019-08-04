@@ -15,13 +15,14 @@ url = parser.parse_args().url
 # pull image
 resp = requests.get(url)
 image = np.asarray(bytearray(resp.content), dtype="uint8")
-print(image)
 image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+print(image.shape)
+plt.subplot(1, 2, 1)
+plt.imshow(image)
 
-image = cv2.resize((100, 100))
-pred = model.evaluate([image])[0]
+image = cv2.resize(image, (100, 100))
 
+pred = model.predict(np.array([image]).reshape(1, 100, 100, 3))[0]
+plt.subplot(1, 2, 2)
 plt.bar(np.arange(10), pred)
-
 plt.show()
