@@ -26,3 +26,6 @@ pred = model.predict(np.array([image]).reshape(1, 100, 100, 3))[0]
 plt.subplot(1, 2, 2)
 plt.bar(np.arange(10), pred)
 plt.show()
+
+## SAMPLE COMMAND:
+## python run.py https://i.redd.it/odqm10rab9a31.jpg
