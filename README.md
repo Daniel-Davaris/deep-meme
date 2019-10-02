@@ -34,9 +34,9 @@ In order to get the linear regression program working, the following packages mu
   * h5py
 
 
-# This file will export the reddit API as CSV data
+### This file will export the reddit API as CSV data
 
-    run
+run
 ```
 scraper.py
 ```
