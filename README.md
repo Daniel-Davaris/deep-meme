@@ -12,14 +12,12 @@ In order to get the linear regression program working, the following packages mu
   * pandas
 
 
-### Installing
+### Running the program
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+The following program has only been tested with[Python verison 3.7.4](https://www.python.org/downloads/release/python-374/) 
 
 ```
-Give the example
+linear_regression.py
 ```
 
 And repeat
