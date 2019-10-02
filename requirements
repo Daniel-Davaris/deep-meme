@@ -5,3 +5,5 @@ pandas
 praw
 opencv-python
 h5py
+keras
+tensorflow
