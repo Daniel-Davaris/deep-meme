@@ -1,3 +1,7 @@
 matplotlib
 sklearn
 pandas
+
+praw
+opencv-python
+h5py

@@ -15,7 +15,8 @@ In order to get the linear regression program working, the following packages mu
 ### Running the program
 
 The following program has only been tested with [Python verison 3.7.4](https://www.python.org/downloads/release/python-374/) 
-Run 
+
+ Run 
 ```
 linear_regression.py
 ```
@@ -23,22 +24,21 @@ linear_regression.py
 
 ## Running the network model
 
-Explain how to run the automated tests for this system
+The network model is comprised of several files with separate functions. First the data is scraped from the Reddit API. The data is then imported through CSV to the data preparation file which converts the data into the appropriate form for the network model. 
 
-### Break down into end to end tests
+## Requirements
 
-Explain what these tests test and why
+In order to get the linear regression program working, the following packages must be installed:
+  * praw
+  * opencv-python
+  * h5py
 
+
+# This file will export the reddit API as CSV data
+
+    run
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+scraper.py
 ```
 
 ## Deployment
