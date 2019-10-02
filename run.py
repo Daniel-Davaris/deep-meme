@@ -16,7 +16,7 @@ url = parser.parse_args().url
 resp = requests.get(url)
 image = np.asarray(bytearray(resp.content), dtype="uint8")
 image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-print(image.shape)
+# print(image.shape)
 plt.subplot(1, 2, 1)
 plt.imshow(image)
 
