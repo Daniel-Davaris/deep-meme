@@ -9,7 +9,7 @@ This project began using simple statistical methods to make label predictions, a
 In order to get the linear regression program working, the following packages must be installed:
   * matplotlib
   * sklearn
-= * pandas
+  * pandas
 
 
 ### Installing
