@@ -40,10 +40,29 @@ run
 ```
 scraper.py
 ```
+Once the [exported_data.csv] has exported to the working directory run
+```
+data_prep.py
+```
+Data prep will perform several functions including regularisation, converting the data into objects and labels as well as the necessary h5 object conversions.
 
-## Deployment
 
-Add additional notes about how to deploy this on a live system
+## Executing the network 
+The model can now read in the data.h5 file and begin making predictions 
+
+```
+CNN.py
+```
+
+These predictions can then be saved as a pre-trained model which is exported as model.h5 
+
+Execute the test file
+
+run
+
+```
+run.py
+```
 
 ## Built With
 
