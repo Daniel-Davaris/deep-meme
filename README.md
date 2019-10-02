@@ -4,13 +4,13 @@ A neural network for meme analysis, classification and lifetime expectancy
 ## Getting Started
 
 This project began using simple statistical methods to make label predictions, as such the linear_regression.py file can be run using the regression requirements while the neural network model can be run using the network requirements. 
-### Prerequisites
+## Requirements
 
-What things you need to install the software and how to install them
+In order to get the linear regression program working, the following packages must be installed:
+  * matplotlib
+  * sklearn
+= * pandas
 
-```
-Give examples
-```
 
 ### Installing
 
