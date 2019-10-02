@@ -14,21 +14,14 @@ In order to get the linear regression program working, the following packages mu
 
 ### Running the program
 
-The following program has only been tested with[Python verison 3.7.4](https://www.python.org/downloads/release/python-374/) 
-
+The following program has only been tested with [Python verison 3.7.4](https://www.python.org/downloads/release/python-374/) 
+Run 
 ```
 linear_regression.py
 ```
 
-And repeat
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
+## Running the network model
 
 Explain how to run the automated tests for this system
 
