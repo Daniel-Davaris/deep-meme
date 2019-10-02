@@ -3,8 +3,7 @@ A neural network for meme analysis, classification and lifetime expectancy
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
+This project began using simple statistical methods to make label predictions, as such the linear_regression.py file can be run using the regression requirements while the neural network model can be run using the network requirements. 
 ### Prerequisites
 
 What things you need to install the software and how to install them
