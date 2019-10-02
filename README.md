@@ -50,6 +50,7 @@ Data prep will perform several functions including regularisation, converting th
 ## Executing the network 
 The model can now read in the data.h5 file and begin making predictions 
 
+run
 ```
 CNN.py
 ```
